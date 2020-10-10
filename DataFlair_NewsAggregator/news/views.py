@@ -14,6 +14,7 @@ def scrape(request):
   print("NEWS: ", News)
   for article in News:
     main = article.find_all('a')[0]
+    print(main)
     link = main['href']
     image_src = '' # str(main.find('img')['srcset']).split(" ")[-4]
     title = 'test' #main['title']
@@ -23,6 +24,11 @@ def scrape(request):
     new_headline.url = link
     new_headline.image = image_src
     new_headline.save()
+  return redirect("../")
+
+def delete_all(request):
+  print("DELETE ALL")
+  Headline.objects.all().delete()
   return redirect("../")
 
 def news_list(request):
