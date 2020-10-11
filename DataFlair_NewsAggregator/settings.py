@@ -28,7 +28,7 @@ SECRET_KEY = 'xlis2u#m=0k%o21+@&lb-adc+x1_p&@e2n%xm8okqo@a(t4-i8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://news-scrapr-ai.herokuapp.com/']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
