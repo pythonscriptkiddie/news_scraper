@@ -11,10 +11,9 @@ def scrape(request):
   soup = BSoup(content, "html.parser")
   News = soup.find_all('article', {"class":"js_post_item"})
   print("SCRAPE")
-  print("NEWS: ", News)
+  print("NEWS: ", len(News))
   for article in News:
     main = article.find_all('a')[0]
-    print(main)
     link = main['href']
     image_src = '' # str(main.find('img')['srcset']).split(" ")[-4]
     title = 'test2' #main['title']
