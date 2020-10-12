@@ -17,7 +17,7 @@ def scrape(request):
     print(main)
     link = main['href']
     image_src = '' # str(main.find('img')['srcset']).split(" ")[-4]
-    title = 'test' #main['title']
+    title = 'test2' #main['title']
 
     new_headline = Headline()
     new_headline.title = title
