@@ -22,6 +22,7 @@ SITES = [
   'https://edition.cnn.com/',
   'https://news247.gr',
   'https://gazzetta.gr',
+  'https://contra.gr',
 ]
 
 # def get_news(session, url, div_selector, div_class):
@@ -53,14 +54,17 @@ SITES = [
 #     new_headline = Headline.objects.get_or_create(**fields)
 
 def save_article(article):
-  title = article.title
-  article_title = article.title.replace('\n', '').strip()
+  print("title: ", article.title)
+  print("url: ", article.url)
+  print("text: ", article.text)
+  print("keywords: ", article.keywords)
+  # article_title = article.title.replace('\n', '').strip()
   fields = {
-    'title': article_title if article_title else 'No title',
+    'title': article.title.replace('\n', '').strip() if article.title else 'No title',
     'url': article.url,
     'image': article.top_image
   }
-  print("======", fields)
+  # print("======", fields)
   # Do not save duplicates
   new_headline = Headline.objects.get_or_create(**fields)
 
