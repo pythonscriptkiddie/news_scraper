@@ -4,25 +4,26 @@ from bs4 import BeautifulSoup as BSoup
 from news.models import Headline
 import newspaper
 
-SITES_MAPPING = [
+#SITES_MAPPING = [
   # {
   #   'url': "https://www.theonion.com/",
   #   'div_selector': 'article',
   #   'div_class': 'js_post_item'
   # },
-  {
-    'url': 'https://www.bbc.com/',
-    'div_selector': 'div',
-    'div_class': 'media',
-  }
-]
+#  {
+#    'url': 'https://www.bbc.com/',
+#    'div_selector': 'div',
+#    'div_class': 'media',
+#  }
+#]
 
 SITES = [
-  'http://bbc.com',
-  'https://edition.cnn.com/',
-  'https://news247.gr',
-  'https://gazzetta.gr',
+  'https://www.somaliaffairs.com',
+  'https://sudantribune.com',
+  'https://nation.africa/kenya',
+  'https://www.business-standard.com',
   'https://contra.gr',
+  'https://www.vanguardngr.com',
 ]
 
 # def get_news(session, url, div_selector, div_class):
