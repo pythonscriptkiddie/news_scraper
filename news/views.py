@@ -22,7 +22,6 @@ SITES = [
   'https://sudantribune.com',
   'https://nation.africa/kenya',
   'https://www.business-standard.com',
-  'https://contra.gr',
   'https://www.vanguardngr.com',
 ]
 
@@ -68,6 +67,9 @@ def save_article(article):
   # print("======", fields)
   # Do not save duplicates
   new_headline = Headline.objects.get_or_create(**fields)
+
+#def save_publication(article):
+#  print("url: ")
 
 def scrape(request):
   session = requests.Session()
