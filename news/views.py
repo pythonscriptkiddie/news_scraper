@@ -65,7 +65,7 @@ def save_article(article, publication_id=None):
   # article_title = article.title.replace('\n', '').strip()
   fields = {
     'title': article.title.replace('\n', '').strip() if article.title else 'No title',
-    'headline_url': article.url,
+    'article_url': article.url,
     'image': article.top_image,
     'publication': Publication.objects.get(id=publication_id)
   }
