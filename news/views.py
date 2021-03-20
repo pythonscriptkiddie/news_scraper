@@ -17,13 +17,15 @@ import newspaper
 #  }
 #]
 
-SITES = [
-  'https://www.somaliaffairs.com',
-  'https://sudantribune.com',
-  'https://nation.africa/kenya',
-  'https://www.business-standard.com',
-  'https://www.vanguardngr.com',
-]
+#SITES = [
+#  'https://www.somaliaffairs.com',
+#  'https://sudantribune.com',
+#  'https://nation.africa/kenya',
+#  'https://www.business-standard.com',
+#  'https://www.vanguardngr.com',
+#]
+
+SITES = [i for i in Publication.objects.all()]
 
 # def get_news(session, url, div_selector, div_class):
 #   content = session.get(url, verify=False).content
@@ -53,16 +55,18 @@ SITES = [
 #     # Do not save duplicates
 #     new_headline = Headline.objects.get_or_create(**fields)
 
-def save_article(article):
+def save_article(article, publication_id=None):
   print("title: ", article.title)
   print("url: ", article.url)
   print("text: ", article.text)
   print("keywords: ", article.keywords)
+  print('publication_id', publication_id or None)
   # article_title = article.title.replace('\n', '').strip()
   fields = {
     'title': article.title.replace('\n', '').strip() if article.title else 'No title',
     'url': article.url,
-    'image': article.top_image
+    'image': article.top_image,
+    'publication': publication_id
   }
   # print("======", fields)
   # Do not save duplicates
@@ -82,11 +86,12 @@ def scrape(request):
   #   save_news(source['url'], news)
 
   for source in SITES:
-    print("SITE: ", source)
-    paper_build = newspaper.build(source)
+    publication_id = source.id
+    print("SITE: ", source.homepage_url)
+    paper_build = newspaper.build(source.homepage_url)
     print(len(paper_build.articles))
     for article in paper_build.articles:
-      save_article(article)
+      save_article(article, publication_id)
   return redirect("../")
 
 def delete_all(request):
