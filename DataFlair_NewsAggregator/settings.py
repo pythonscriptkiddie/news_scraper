@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'news'
+    #our news application
+    'news',
+    #django rest framework
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

@@ -58,14 +58,14 @@ SITES = [i for i in Publication.objects.all()]
 
 def save_article(article, publication_id=None):
   print("title: ", article.title)
-  print("url: ", article.url)
+  print("headline_url: ", article.url)
   print("text: ", article.text)
   print("keywords: ", article.keywords)
   print('publication_id', publication_id or None)
   # article_title = article.title.replace('\n', '').strip()
   fields = {
     'title': article.title.replace('\n', '').strip() if article.title else 'No title',
-    'url': article.url,
+    'headline_url': article.url,
     'image': article.top_image,
     'publication': Publication.objects.get(id=publication_id)
   }

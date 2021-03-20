@@ -13,7 +13,7 @@ class Headline(models.Model):
   title = models.CharField(max_length=200)
   # source = models.CharField(max_length=200)
   image = models.URLField(null=True, blank=True)
-  url = models.TextField()
+  article_url = models.TextField()
   publication = models.ForeignKey(
     Publication,
     related_name='headlines',
