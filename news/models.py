@@ -6,6 +6,9 @@ class Publication(models.Model):
   def __str__(self):
     return self.homepage_url
 
+  class Meta:
+    ordering = ('homepage_url',)
+
 class Headline(models.Model):
   title = models.CharField(max_length=200)
   # source = models.CharField(max_length=200)
@@ -21,3 +24,6 @@ class Headline(models.Model):
 
   def __str__(self):
     return self.title
+  
+  class Meta:
+    ordering = ('title',)
