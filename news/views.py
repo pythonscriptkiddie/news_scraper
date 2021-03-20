@@ -2,6 +2,7 @@ import requests
 from django.shortcuts import render, redirect
 from bs4 import BeautifulSoup as BSoup
 from news.models import Headline
+from news.models import Publication
 import newspaper
 
 #SITES_MAPPING = [
@@ -66,7 +67,7 @@ def save_article(article, publication_id=None):
     'title': article.title.replace('\n', '').strip() if article.title else 'No title',
     'url': article.url,
     'image': article.top_image,
-    'publication': publication_id
+    'publication': Publication.objects.get(id=publication_id)
   }
   # print("======", fields)
   # Do not save duplicates
