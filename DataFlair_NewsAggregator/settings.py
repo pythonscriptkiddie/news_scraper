@@ -132,3 +132,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+REST_FRAMEWORK = {'DEFAULT_PAGINATION_CLASS':
+    'news.max_limit_pagination.MaxLimitPagination',
+    'PAGE_SIZE': 4
+}
