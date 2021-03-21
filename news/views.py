@@ -1,9 +1,44 @@
 import requests
 from django.shortcuts import render, redirect
 from bs4 import BeautifulSoup as BSoup
+import newspaper
 from news.models import Headline
 from news.models import Publication
-import newspaper
+from news.serializers import HeadlineSerializer
+from news.serializers import PublicationSerializer
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+class HeadlineList(generics.ListCreateAPIView):
+  queryset = Headline.objects.all()
+  serializer_class = HeadlineSerializer
+  name = 'headline-list'
+
+class HeadlineDetail(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Headline.objects.all()
+  serializer_class = HeadlineSerializer
+  name = 'headline-detail'
+
+class PublicationList(generics.ListCreateAPIView):
+  queryset = Publication.objects.all()
+  serializer_class = PublicationSerializer
+  name = 'publication-list'
+
+class PublicationDetail(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Publication.objects.all()
+  serializer_class = PublicationSerializer
+  name = 'publication-detail'
+
+class ApiRoot(generics.GenericAPIView):
+  name='api-root'
+  def get(self, request, *args, **kwargs):
+    return Response({
+      'headlines': reverse(HeadlineList.name, request=request),
+      'publications': reverse(PublicationList.name, request=request)
+    })
+
+##### non api related code
 
 #SITES_MAPPING = [
   # {

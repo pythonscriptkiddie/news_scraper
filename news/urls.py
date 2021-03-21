@@ -5,25 +5,26 @@ from news import views
 
 
 urlpatterns = [
-  path('scrape/', views.scrape, name="scrape"),
-  path('delete/', views.delete_all, name="delete"),
-  path('', views.news_list, name="home"),
+  
   #django rest framework patterns
   url(r'^api/publications/$',
     views.PublicationList.as_view(),
-    views.PublicationList.name),
+    name=views.PublicationList.name),
   url(r'api/publications/(?P<pk>[0-9])/$',
     views.PublicationDetail.as_view(),
-    views.PublicationDetail.name),
+    name=views.PublicationDetail.name),
   url(r'^api/headlines/$',
     views.HeadlineList.as_view(),
-    views.HeadlineList.name),
+    name=views.HeadlineList.name),
   #headlinedetail
   url(r'api/headlines/(?P<pk>[0-9])/$',
     views.HeadlineDetail.as_view(),
-    views.HeadlineDetail.name),
+    name=views.HeadlineDetail.name),
   url(r'^api/$',
     views.ApiRoot.as_view(),
-    views.ApiRoot.name),
+    name=views.ApiRoot.name),
   #news app url patterns
+  path('scrape/', views.scrape, name="scrape"),
+  path('delete/', views.delete_all, name="delete"),
+  path('', views.news_list, name="home"),
 ]
