@@ -61,7 +61,7 @@ class ApiRoot(generics.GenericAPIView):
 #  'https://www.vanguardngr.com',
 #]
 
-SITES = [i for i in Publication.objects.all()]
+
 
 # def get_news(session, url, div_selector, div_class):
 #   content = session.get(url, verify=False).content
@@ -90,6 +90,8 @@ SITES = [i for i in Publication.objects.all()]
 
 #     # Do not save duplicates
 #     new_headline = Headline.objects.get_or_create(**fields)
+
+SITES = [i for i in Publication.objects.all()]
 
 def save_article(article, publication_id=None):
   print("title: ", article.title)
