@@ -7,7 +7,7 @@ class PublicationSerializer(serializers.ModelSerializer):
     headlines = serializers.HyperlinkedRelatedField(
         many=True,
         read_only=True,
-        view_name='headline-list')
+        view_name='headline-detail')
 
     class Meta:
         model = Publication
