@@ -7,6 +7,12 @@ from news import views
 urlpatterns = [
   
   #django rest framework patterns
+  url(r'^api/sections/$',
+    views.SectionList.as_view(),
+    name=views.SectionList.name),
+  url(r'api/sections/(?P<pk>[0-9])/$',
+    views.SectionDetail.as_view(),
+    name=views.SectionDetail.name),
   url(r'^api/publications/$',
     views.PublicationList.as_view(),
     name=views.PublicationList.name),

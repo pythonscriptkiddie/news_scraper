@@ -1,5 +1,12 @@
 from django.db import models
 
+class Section(models.Model):
+  name = models.CharField(max_length=200)
+
+  def __str__(self):
+    return self.name
+
+
 class Publication(models.Model):
   title = models.CharField(max_length=200)
   homepage_url = models.URLField(unique=True)
@@ -22,6 +29,13 @@ class Headline(models.Model):
     blank=True,
     null=True
   )
+  #category = models.ForeignKey(
+  #  Category,
+  #  related_name='headlines',
+ #   on_delete=models.SET_NULL,
+ #   blank=True,
+ #   null=True
+ # )
 
   def __str__(self):
     return self.title

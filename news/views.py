@@ -4,8 +4,10 @@ from bs4 import BeautifulSoup as BSoup
 import newspaper
 from news.models import Headline
 from news.models import Publication
+from news.models import Section
 from news.serializers import HeadlineSerializer
 from news.serializers import PublicationSerializer
+from news.serializers import SectionSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -30,10 +32,21 @@ class PublicationDetail(generics.RetrieveUpdateDestroyAPIView):
   serializer_class = PublicationSerializer
   name = 'publication-detail'
 
+class SectionList(generics.ListCreateAPIView):
+  queryset = Section.objects.all()
+  serializer_class = SectionSerializer
+  name = 'section-list'
+
+class SectionDetail(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Section.objects.all()
+  serializer_class = SectionSerializer
+  name = 'section-detail'
+
 class ApiRoot(generics.GenericAPIView):
   name='api-root'
   def get(self, request, *args, **kwargs):
     return Response({
+      'sections': reverse(SectionList.name, request=request),
       'headlines': reverse(HeadlineList.name, request=request),
       'publications': reverse(PublicationList.name, request=request)
     })

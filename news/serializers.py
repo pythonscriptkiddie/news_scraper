@@ -1,12 +1,20 @@
 from rest_framework import serializers
 from news.models import Headline
 from news.models import Publication
+from news.models import Section
+
+class SectionSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Section 
+        fields = ('id',
+                'name',
+                'url')
 
 class PublicationSerializer(serializers.HyperlinkedModelSerializer):
-    headlines = serializers.HyperlinkedRelatedField(
+    headlines = serializers.SlugRelatedField(
+        queryset=Headline.objects.all(),
         many=True,
-        read_only=True,
-        view_name='headline-detail'
+        slug_field='title'
     )
 
     class Meta:
@@ -15,10 +23,10 @@ class PublicationSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id',
                 'title',
                 'homepage_url',
-                'headlines',
-                'url')
+                'headlines')
+                #'url')
 
-class HeadlineSerializer(serializers.HyperlinkedModelSerializer):
+class HeadlineSerializer(serializers.ModelSerializer):
 
     publication = serializers.SlugRelatedField(
         queryset=Publication.objects.all(),
@@ -30,5 +38,5 @@ class HeadlineSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id',
                 'title',
                 'article_url',
-                'publication',
-                'url')
+                'publication',)
+                #'url')
