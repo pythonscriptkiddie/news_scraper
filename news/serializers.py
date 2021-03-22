@@ -6,6 +6,12 @@ from news.models import Category
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
+    headlines = serializers.SlugRelatedField(
+        queryset=Headline.objects.all(),
+        many=True,
+        slug_field='title'
+    )
+
     section = serializers.SlugRelatedField(
         queryset=Section.objects.all(),
         slug_field='name')
@@ -15,7 +21,8 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id',
                 'name',
                 'url',
-                'section')
+                'section',
+                'headlines')
 
 class SectionSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -55,11 +62,17 @@ class HeadlineSerializer(serializers.ModelSerializer):
         queryset=Publication.objects.all(),
         slug_field='title')
 
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        slug_field='name'
+    )
+
     class Meta:
         model = Headline
 
         fields = ('id',
                 'title',
                 'article_url',
-                'publication',)
+                'publication',
+                'category')
                 #'url')

@@ -56,13 +56,13 @@ class Headline(models.Model):
     blank=True,
     null=True
   )
-  #category = models.ForeignKey(
-  #  Category,
-  #  related_name='headlines',
- #   on_delete=models.SET_NULL,
- #   blank=True,
- #   null=True
- # )
+  category = models.ForeignKey(
+    Category,
+    related_name='headlines',
+    on_delete=models.SET_NULL,
+    blank=True,
+    null=True
+  )
 
   def __str__(self):
     return self.title
