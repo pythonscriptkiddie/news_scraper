@@ -2,13 +2,36 @@ from rest_framework import serializers
 from news.models import Headline
 from news.models import Publication
 from news.models import Section
+from news.models import Category
+
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+
+    section = serializers.SlugRelatedField(
+        queryset=Section.objects.all(),
+        slug_field='name')
+
+    class Meta:
+        model = Category
+        fields = ('id',
+                'name',
+                'url',
+                'section')
 
 class SectionSerializer(serializers.HyperlinkedModelSerializer):
+
+    categories = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        many=True,
+        slug_field='name'
+    )
+
     class Meta:
         model = Section 
         fields = ('id',
                 'name',
-                'url')
+                'section_type',
+                'url',
+                'categories')
 
 class PublicationSerializer(serializers.HyperlinkedModelSerializer):
     headlines = serializers.SlugRelatedField(

@@ -7,6 +7,12 @@ from news import views
 urlpatterns = [
   
   #django rest framework patterns
+  url(r'^api/categories/$',
+    views.CategoryList.as_view(),
+    name=views.CategoryList.name),
+  url(r'api/categories/(?P<pk>[0-9])/$',
+    views.CategoryDetail.as_view(),
+    name=views.CategoryDetail.name),
   url(r'^api/sections/$',
     views.SectionList.as_view(),
     name=views.SectionList.name),
