@@ -92,6 +92,8 @@ class ApiRoot(generics.GenericAPIView):
 #     new_headline = Headline.objects.get_or_create(**fields)
 
 SITES = [i for i in Publication.objects.all()]
+#comment out the above list comprehension before modifying the 
+#Publication object
 
 def save_article(article, publication_id=None):
   print("title: ", article.title)

@@ -2,24 +2,27 @@ from rest_framework import serializers
 from news.models import Headline
 from news.models import Publication
 
-class PublicationSerializer(serializers.ModelSerializer):
-    headlines = serializers.SlugRelatedField(
-        queryset=Headline.objects.all(),
+class PublicationSerializer(serializers.HyperlinkedModelSerializer):
+    headlines = serializers.HyperlinkedRelatedField(
         many=True,
-        slug_field='title')
+        read_only=True,
+        view_name='headline-detail'
+    )
 
     class Meta:
         model = Publication
     
         fields = ('id',
+                'title',
                 'homepage_url',
-                'headlines',)
+                'headlines',
+                'url')
 
-class HeadlineSerializer(serializers.ModelSerializer):
+class HeadlineSerializer(serializers.HyperlinkedModelSerializer):
 
     publication = serializers.SlugRelatedField(
         queryset=Publication.objects.all(),
-        slug_field='homepage_url')
+        slug_field='title')
 
     class Meta:
         model = Headline

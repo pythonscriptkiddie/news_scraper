@@ -1,6 +1,7 @@
 from django.db import models
 
 class Publication(models.Model):
+  title = models.CharField(max_length=200)
   homepage_url = models.URLField(unique=True)
 
   def __str__(self):
