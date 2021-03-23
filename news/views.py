@@ -1,3 +1,4 @@
+import csv
 import requests
 from django.shortcuts import render, redirect
 from bs4 import BeautifulSoup as BSoup
@@ -13,6 +14,7 @@ from news.serializers import CategorySerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from django.http import HttpResponse
 
 class HeadlineList(generics.ListCreateAPIView):
   queryset = Headline.objects.all()
@@ -171,3 +173,19 @@ def news_list(request):
       'object_list': headlines,
   }
   return render(request, "news/home.html", context)
+
+def export_headlines(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    headlines = Headline.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="export_headlines.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['url', 'title'])
+    for headline in headlines:
+      writer.writerow([headline.article_url, headline.title])
+    
+    #writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+    #writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+
+    return response

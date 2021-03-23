@@ -39,4 +39,7 @@ urlpatterns = [
   path('scrape/', views.scrape, name="scrape"),
   path('delete/', views.delete_all, name="delete"),
   path('', views.news_list, name="home"),
+  path(r'export_headlines/',
+    views.export_headlines,
+    name='export_headlines'),
 ]
