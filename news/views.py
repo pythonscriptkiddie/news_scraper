@@ -7,14 +7,38 @@ from news.models import Headline
 from news.models import Publication
 from news.models import Section
 from news.models import Category
+from news.models import Roundup
+from news.models import Introduction
 from news.serializers import HeadlineSerializer
 from news.serializers import PublicationSerializer
 from news.serializers import SectionSerializer
 from news.serializers import CategorySerializer
+from news.serializers import IntroductionSerializer
+from news.serializers import RoundupSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django.http import HttpResponse
+
+class IntroductionList(generics.ListCreateAPIView):
+  queryset = Introduction.objects.all()
+  serializer_class = IntroductionSerializer
+  name = 'introduction-list'
+
+class IntroductionDetail(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Introduction.objects.all()
+  serializer_class = IntroductionSerializer
+  name = 'introduction-detail'
+
+class RoundupList(generics.ListCreateAPIView):
+  queryset = Roundup.objects.all()
+  serializer_class = RoundupSerializer
+  name = 'roundup-list'
+
+class RoundupDetail(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Roundup.objects.all()
+  serializer_class = RoundupSerializer
+  name = 'roundup-detail'
 
 class HeadlineList(generics.ListCreateAPIView):
   queryset = Headline.objects.all()
@@ -60,6 +84,8 @@ class ApiRoot(generics.GenericAPIView):
   name='api-root'
   def get(self, request, *args, **kwargs):
     return Response({
+      'roundups': reverse(RoundupList.name, request=request),
+      'introductions': reverse(IntroductionList.name, request=request),
       'categories': reverse(CategoryList.name, request=request),
       'sections': reverse(SectionList.name, request=request),
       'headlines': reverse(HeadlineList.name, request=request),

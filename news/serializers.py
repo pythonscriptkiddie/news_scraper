@@ -3,6 +3,35 @@ from news.models import Headline
 from news.models import Publication
 from news.models import Section
 from news.models import Category
+from news.models import Roundup
+from news.models import Introduction
+
+class IntroductionSerializer(serializers.HyperlinkedModelSerializer):
+    roundups = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='roundup-detail',
+    )
+
+    class Meta:
+        model = Introduction
+        fields = ('id',
+                'text')
+
+class RoundupSerializer(serializers.HyperlinkedModelSerializer):
+
+    introduction = serializers.SlugRelatedField(
+        queryset=Roundup.objects.all(),
+        slug_field='title'
+    )
+
+    class Meta:
+        model = Roundup
+        fields = ('id',
+                'title',
+                'introduction',
+                'start_date',
+                'end_date')
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
 

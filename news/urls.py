@@ -7,6 +7,18 @@ from news import views
 urlpatterns = [
   
   #django rest framework patterns
+  url(r'^api/roundups/$',
+    views.RoundupList.as_view(),
+    name=views.RoundupList.name),
+  url(r'api/roundups/(?P<pk>[0-9])/$',
+    views.RoundupDetail.as_view(),
+    name=views.RoundupDetail.name),
+  url(r'^api/introductions/$',
+    views.IntroductionList.as_view(),
+    name=views.IntroductionList.name),
+  url(r'api/introductions/(?P<pk>[0-9])/$',
+    views.IntroductionDetail.as_view(),
+    name=views.IntroductionDetail.name),
   url(r'^api/categories/$',
     views.CategoryList.as_view(),
     name=views.CategoryList.name),

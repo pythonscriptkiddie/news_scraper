@@ -1,5 +1,32 @@
 from django.db import models
 
+class Introduction(models.Model):
+  text = models.TextField(default='', null=True, blank=True)
+
+  def __str__(self):
+    return self.text
+
+  class Meta:
+    ordering = ('text',)
+
+class Roundup(models.Model):
+  title = models.CharField(max_length=200)
+  start_date = models.DateField(null=True, blank=True)
+  end_date = models.DateField(null=True, blank=True)
+  introduction = models.ForeignKey(
+    Introduction,
+    related_name='roundups',
+    on_delete=models.SET_NULL,
+    blank=True,
+    null=True
+  )
+
+  def __str__(self):
+    return self.title
+  
+  class Meta:
+    ordering = ('title',)
+
 class Section(models.Model):
   COUNTRY = 'C'
   THEMATIC = 'T'
